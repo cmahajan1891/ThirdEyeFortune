@@ -1,0 +1,55 @@
+<resources>
+    <string name="tef_app_name">Third Eye Fortune</string>
+    <string name="tef_hint_username">Username</string>
+    <string name="tef_hint_email">Email</string>
+    <string name="tef_hint_password">Password</string>
+    <string name="tef_button_next">Next</string>
+    <string name="tef_button_cancel">Cancel</string>
+    <!--    <string name="shr_error_password">Password must contain at least 8 characters.</string>-->
+    <!--    <string name="shr_filter_title">Filter</string>-->
+    <!--    <string name="shr_search_title">Search</string>-->
+    <!--    <string name="shr_product_title">Title</string>-->
+    <!--    <string name="shr_product_description">Secondary text</string>-->
+
+    <!-- Shrine backdrop menu labels -->
+    <!--    <string name="shr_featured_label">Featured</string>-->
+    <!--    <string name="shr_apartment_label">Apartment</string>-->
+    <!--    <string name="shr_accessories_label">Accessories</string>-->
+    <!--    <string name="shr_shoes_label">Shoes</string>-->
+    <!--    <string name="shr_tops_label">Tops</string>-->
+    <!--    <string name="shr_bottoms_label">Bottoms</string>-->
+    <!--    <string name="shr_dresses_label">Dresses</string>-->
+    <!--    <string name="shr_account_label">My Account</string>-->
+    <string name="tef_logo_content_description">Fortune Logo</string>
+
+    <!-- Network -->
+    <string name="network_connection_error">Internet connection lost, please retry again</string>
+    <string name="network_default_error">Something wrong happened, please retry again</string>
+    <string name="network_internal_error">Our systems got an error, please retry again</string>
+    <string name="network_server_not_available">Our services are under maintenance, please retry after some time
+    </string>
+    <string name="server_connection_error">Not able to connect, please retry again</string>
+    <string name="network_login_again">Please log in again</string>
+
+    <!--login-->
+    <string name="email_field_hint">Enter your email</string>
+    <string name="password_field_hint">Enter your password</string>
+    <string name="email_field_empty">Email can\'t be empty</string>
+    <string name="username_field_empty">Username can\'t be empty</string>
+    <string name="password_field_empty">Password can\'t be empty</string>
+    <string name="email_field_invalid">Not a valid email</string>
+    <string name="password_field_small_length">Password less than 6 characters</string>
+    <string name="login_button_text">Login</string>
+    <string name="tef_create_account">Create Account,</string>
+    <string name="tef_sign_up_button_txt">Sign up</string>
+    <string name="tef_create_account_login_page">Create Account</string>
+    <string name="tef_sign_up">Sign up to get started!</string>
+    <string name="tef_auth_failed">Authentication failed.</string>
+
+    <!-- Facebook login-->
+    <string name="login_with_facebook_button_text">Login with facebook</string>
+    <string name="facebook_app_id">581013142848621</string>
+    <string name="fb_login_protocol_scheme">fb581013142848621</string>
+
+
+</resources>
