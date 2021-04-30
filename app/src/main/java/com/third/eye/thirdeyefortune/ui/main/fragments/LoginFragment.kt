@@ -14,6 +14,7 @@ import com.third.eye.thirdeyefortune.R
 import com.third.eye.thirdeyefortune.databinding.LoginFragmentBinding
 import com.third.eye.thirdeyefortune.di.components.FragmentComponent
 import com.third.eye.thirdeyefortune.ui.base.BaseFragment
+import com.third.eye.thirdeyefortune.ui.main.activities.ThirdEyeFortuneActivity
 import com.third.eye.thirdeyefortune.ui.main.viewModels.LoginFragmentViewModel
 import com.third.eye.thirdeyefortune.utils.common.Event
 import com.third.eye.thirdeyefortune.utils.common.Status
@@ -34,6 +35,8 @@ class LoginFragment : BaseFragment<LoginFragmentViewModel, LoginFragmentBinding>
 
     override fun setupView(view: View, savedInstanceState: Bundle?) {
 
+        (activity as ThirdEyeFortuneActivity).hideBottomNavigation()
+
         binding.userEmailText.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.onEmailChange(s.toString())
@@ -51,7 +54,7 @@ class LoginFragment : BaseFragment<LoginFragmentViewModel, LoginFragmentBinding>
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         })
-
+        binding.loginButton.setReadPermissions(listOf("email", "public_profile"))
     }
 
     override fun injectDependencies(fragmentComponent: FragmentComponent) {
@@ -65,7 +68,7 @@ class LoginFragment : BaseFragment<LoginFragmentViewModel, LoginFragmentBinding>
 
         viewModel.launchMain.observe(this, Observer<Event<Map<String, String>>> {
             it.getIfNotHandled()?.run {
-                findNavController().navigate(LoginFragmentDirections.actionGlobalHomeFragment())
+                findNavController().navigate(LoginFragmentDirections.actionGlobalFeedsFragment())
             }
         })
 
@@ -99,7 +102,10 @@ class LoginFragment : BaseFragment<LoginFragmentViewModel, LoginFragmentBinding>
 
         viewModel.requestFacebookLogin.observe(this, Observer {
             if (it) {
-                loginManager.logInWithReadPermissions(this, listOf("email", "public_profile"))
+                loginManager.logInWithReadPermissions(
+                    this,
+                    listOf("email", "public_profile")
+                )
             }
         })
 

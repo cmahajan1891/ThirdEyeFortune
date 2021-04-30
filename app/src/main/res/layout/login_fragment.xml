@@ -25,23 +25,23 @@
             android:padding="24dp"
             android:paddingTop="16dp">
 
-            <ImageView
-                android:layout_width="124dp"
-                android:layout_height="124dp"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="116dp"
+                android:layout_height="116dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"
                 android:contentDescription="@string/tef_logo_content_description"
                 app:srcCompat="@drawable/tef_logo" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="60dp"
+                android:layout_marginBottom="42dp"
                 android:text="@string/tef_app_name"
                 android:textAllCaps="true"
-                android:textSize="16sp" />
+                android:textSize="24sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/user_email"
@@ -115,15 +115,43 @@
 
             </RelativeLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="46dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/darker_gray" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:text="@string/tef_or_text"
+                    android:textAllCaps="true"
+                    android:textSize="16sp" />
+
+            </FrameLayout>
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/sign_up_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
                 android:onClick="@{(view) -> viewModel.onCreateAccountClicked(view)}"
-                android:text="@string/tef_sign_up_button_txt" />
+                android:text="@string/tef_sign_up_button_txt"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </ScrollView>

@@ -1,20 +1,20 @@
 package com.third.eye.thirdeyefortune.ui.main.viewModels
 
+import android.net.Uri
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.navigation.findNavController
-import com.facebook.AccessToken
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
+import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.third.eye.thirdeyefortune.R
 import com.third.eye.thirdeyefortune.log.Logger
 import com.third.eye.thirdeyefortune.network.NetworkHelper
@@ -84,7 +84,25 @@ open class LoginFragmentViewModel(
                     // Sign in success, update UI with the signed-in user's information
                     Logger.d("LoginFragmentViewModel", "signInWithCredential:success")
                     loggingIn.postValue(false)
-                    launchMain.postValue(Event(emptyMap()))
+
+                    val request = GraphRequest.newMeRequest(
+                        token
+                    ) { jsonObject, _ ->
+                        val url = jsonObject.getJSONObject("picture").getJSONObject("data")
+                            .getString("url")
+                        val photoUri = Uri.Builder().path(url).build()
+                        mAuth.currentUser?.updateProfile(
+                            UserProfileChangeRequest.Builder().setPhotoUri(photoUri).build()
+                        )
+
+                        launchMain.postValue(Event(emptyMap()))
+                    }
+
+                    val parameters = Bundle()
+                    parameters.putString("fields", "picture")
+                    request.parameters = parameters
+                    request.executeAsync()
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Logger.w(
@@ -92,8 +110,8 @@ open class LoginFragmentViewModel(
                         "signInWithCredential:failure",
                         task.exception?.message.toString()
                     )
-                    messageStringId.postValue(Resource.error(R.string.tef_auth_failed))
                     loggingIn.postValue(false)
+                    messageStringId.postValue(Resource.error(R.string.tef_auth_failed))
                 }
             }
     }
@@ -134,8 +152,8 @@ open class LoginFragmentViewModel(
             "signInWithEmail:failure",
             task.exception?.message.toString()
         )
-        messageStringId.postValue(Resource.error(R.string.tef_auth_failed))
         loggingIn.postValue(false)
+        messageStringId.postValue(Resource.error(R.string.tef_auth_failed))
     }
 
     private fun signInSuccess() {

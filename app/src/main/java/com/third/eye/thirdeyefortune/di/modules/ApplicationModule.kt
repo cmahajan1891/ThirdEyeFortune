@@ -4,7 +4,10 @@ import android.content.Context
 import com.facebook.CallbackManager
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
+import com.third.eye.thirdeyefortune.BuildConfig
 import com.third.eye.thirdeyefortune.ThirdEyeFortuneApplication
+import com.third.eye.thirdeyefortune.data.remote.NetworkService
+import com.third.eye.thirdeyefortune.data.remote.Networking
 import com.third.eye.thirdeyefortune.di.qualifiers.ApplicationContext
 import com.third.eye.thirdeyefortune.network.NetworkHelper
 import com.third.eye.thirdeyefortune.rx.RxSchedulerProvider
@@ -44,14 +47,14 @@ class ApplicationModule(private val application: ThirdEyeFortuneApplication) {
     @Singleton
     fun providesLoginManager(): LoginManager = LoginManager.getInstance()
 
-//    @Provides
-//    @Singleton
-//    fun provideNetworkService(): NetworkService =
-//        Networking.create(
-//            BuildConfig.API_KEY,
-//            BuildConfig.BASE_URL,
-//            application.cacheDir,
-//            10 * 1024 * 1024 // 10MB
-//        )
+    @Provides
+    @Singleton
+    fun provideNetworkService(): NetworkService =
+        Networking.create(
+            BuildConfig.API_KEY,
+            BuildConfig.BASE_URL,
+            application.cacheDir,
+            10 * 1024 * 1024 // 10MB
+        )
 
 }

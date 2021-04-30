@@ -1,15 +1,17 @@
 package com.third.eye.thirdeyefortune.di.modules
 
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.facebook.CallbackManager
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
+import com.third.eye.thirdeyefortune.data.repository.VideoRepository
 import com.third.eye.thirdeyefortune.network.NetworkHelper
 import com.third.eye.thirdeyefortune.rx.SchedulerProvider
 import com.third.eye.thirdeyefortune.ui.base.BaseFragment
-import com.third.eye.thirdeyefortune.ui.main.viewModels.HomeFragmentViewModel
-import com.third.eye.thirdeyefortune.ui.main.viewModels.LoginFragmentViewModel
-import com.third.eye.thirdeyefortune.ui.main.viewModels.SignUpFragmentViewModel
+import com.third.eye.thirdeyefortune.ui.main.adapters.VideosAdapter
+import com.third.eye.thirdeyefortune.ui.main.viewModels.*
 import com.third.eye.thirdeyefortune.utils.ViewModelProviderFactory
 import dagger.Module
 import dagger.Provides
@@ -17,6 +19,24 @@ import io.reactivex.disposables.CompositeDisposable
 
 @Module
 class FragmentModule(private val fragment: BaseFragment<*, *>) {
+
+    @Provides
+    fun providesFeedsFragmentViewModel(
+        compositeDisposable: CompositeDisposable,
+        networkHelper: NetworkHelper,
+        schedulerProvider: SchedulerProvider,
+        mAuth: FirebaseAuth,
+        videoRepository: VideoRepository
+    ): FeedsFragmentViewModel =
+        ViewModelProviders.of(fragment, ViewModelProviderFactory(FeedsFragmentViewModel::class) {
+            FeedsFragmentViewModel(
+                compositeDisposable = compositeDisposable,
+                networkHelper = networkHelper,
+                schedulerProvider = schedulerProvider,
+                mAuth = mAuth,
+                videoRepository = videoRepository
+            )
+        }).get(FeedsFragmentViewModel::class.java)
 
     @Provides
     fun providesLoginFragmentViewModel(
@@ -59,19 +79,40 @@ class FragmentModule(private val fragment: BaseFragment<*, *>) {
         }).get(SignUpFragmentViewModel::class.java)
 
     @Provides
-    fun providesHomeFragmentViewModel(
+    fun providesProfileFragmentViewModel(
         compositeDisposable: CompositeDisposable,
         networkHelper: NetworkHelper,
-        schedulerProvider: SchedulerProvider,
-        mAuth: FirebaseAuth
-    ): HomeFragmentViewModel =
-        ViewModelProviders.of(fragment, ViewModelProviderFactory(HomeFragmentViewModel::class) {
-            HomeFragmentViewModel(
+        schedulerProvider: SchedulerProvider
+    ): ProfileFragmentViewModel =
+        ViewModelProviders.of(fragment, ViewModelProviderFactory(ProfileFragmentViewModel::class) {
+            ProfileFragmentViewModel(
                 compositeDisposable = compositeDisposable,
                 networkHelper = networkHelper,
-                schedulerProvider = schedulerProvider,
-                mAuth = mAuth
+                schedulerProvider = schedulerProvider
             )
-        }).get(HomeFragmentViewModel::class.java)
+        }).get(ProfileFragmentViewModel::class.java)
+
+    @Provides
+    fun providesCreateChallengeFragmentViewModel(
+        compositeDisposable: CompositeDisposable,
+        networkHelper: NetworkHelper,
+        schedulerProvider: SchedulerProvider
+    ): CreateChallengeFragmentViewModel =
+        ViewModelProviders.of(
+            fragment,
+            ViewModelProviderFactory(CreateChallengeFragmentViewModel::class) {
+                CreateChallengeFragmentViewModel(
+                    compositeDisposable = compositeDisposable,
+                    networkHelper = networkHelper,
+                    schedulerProvider = schedulerProvider
+                )
+            }).get(CreateChallengeFragmentViewModel::class.java)
+
+    @Provides
+    fun provideLinearLayoutManager(): RecyclerView.LayoutManager =
+        LinearLayoutManager(fragment.context)
+
+    @Provides
+    fun provideVideosAdapter() = VideosAdapter(fragment.lifecycle, ArrayList())
 
 }

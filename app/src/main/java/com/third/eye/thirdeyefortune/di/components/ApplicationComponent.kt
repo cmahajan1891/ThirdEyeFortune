@@ -4,6 +4,7 @@ import com.facebook.CallbackManager
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 import com.third.eye.thirdeyefortune.ThirdEyeFortuneApplication
+import com.third.eye.thirdeyefortune.data.remote.NetworkService
 import com.third.eye.thirdeyefortune.di.modules.ApplicationModule
 import com.third.eye.thirdeyefortune.network.NetworkHelper
 import com.third.eye.thirdeyefortune.rx.SchedulerProvider
@@ -17,6 +18,7 @@ interface ApplicationComponent {
     fun inject(application: ThirdEyeFortuneApplication)
     fun getCompositeDisposable(): CompositeDisposable
     fun getNetworkHelper(): NetworkHelper
+    fun getNetworkService(): NetworkService
     fun getSchedulerProvider(): SchedulerProvider
     fun getFirebaseAuth(): FirebaseAuth
     fun getFacebookCallBackManager(): CallbackManager

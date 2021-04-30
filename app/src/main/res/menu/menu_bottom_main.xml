@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/feedsFragment"
+        android:icon="@drawable/ic_baseline_dynamic_feed_24"
+        android:orderInCategory="1"
+        android:title="@string/tef_bottom_nav_feeds"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/createChallengeFragment"
+        android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:orderInCategory="2"
+        android:title="@string/tef_bottom_nav_challenge"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_profile"
+        android:orderInCategory="3"
+        android:title="@string/tef_bottom_nav_profile"
+        app:showAsAction="ifRoom" />
+
+</menu>

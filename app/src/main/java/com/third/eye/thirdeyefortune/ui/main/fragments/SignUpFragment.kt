@@ -57,7 +57,7 @@ class SignUpFragment : BaseFragment<SignUpFragmentViewModel, SignupFragmentBindi
         // view model also provided the Bundle in the event that is needed for the Activity
         viewModel.launchMain.observe(this, Observer<Event<Map<String, String>>> {
             it.getIfNotHandled()?.run {
-                findNavController().navigate(LoginFragmentDirections.actionGlobalHomeFragment())
+                findNavController().navigate(LoginFragmentDirections.actionGlobalFeedsFragment())
             }
         })
 

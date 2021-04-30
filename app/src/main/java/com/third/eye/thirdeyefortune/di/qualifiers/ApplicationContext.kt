@@ -21,4 +21,4 @@ annotation class ActivityScope
 
 @Scope
 @Retention(AnnotationRetention.SOURCE)
-annotation class ViewHolderScope
+annotation class ViewModelScope
